@@ -19,19 +19,36 @@ jobs:
         with:
           submodules: true
           lfs: false
-      - name: Build And Deploy
+
+      # Set up Node environment (LTS 18.x recommended for Webpack/TypeScript)
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      # Install dependencies and build the TypeScript sample
+      - name: Install and Build
+        working-directory: chat-widget/samples/typescript-sample
+        run: |
+          npm ci
+          npm run build          
+
+      # Deploy built files to Azure Static Web Apps
+      - name: Deploy to Azure Static Web Apps
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ORANGE_SAND_07FEA8700 }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+          repo_token: ${{ secrets.GITHUB_TOKEN }} # For GitHub integration (e.g., PR comments)
           action: "upload"
-          ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
-          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: "/chat-widget/samples/typescript-sample" # App source code path
-          api_location: "" # Api source code path - optional
-          output_location: "dist" # Built app content directory - optional
-          ###### End of Repository/Build Configurations ######
+
+          # Relative to repo root (⚠️ no leading slash)
+          app_location: chat-widget/samples/typescript-sample
+
+          # Webpack output directory (⚠️ "dist", not "build")
+          output_location: dist
+
+          # Skip internal Oryx build (we already built manually above)
+          skip_app_build: true
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'

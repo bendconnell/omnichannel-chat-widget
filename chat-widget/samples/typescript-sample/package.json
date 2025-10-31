@@ -35,7 +35,7 @@
       },
       "scripts": {
         "start": "webpack serve --open",
-        "build": "webpack --mode development"
+        "build": "webpack --config webpack.config.cjs --mode production"
       },
       "browserslist": {
         "production": [
