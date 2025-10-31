@@ -12,9 +12,9 @@ import { defaultProps } from "../src/common/defaultProps";
 
 const getOmnichannelChatConfig = () => {
     const omnichannelConfig = {
-        orgId: "<org-id>",
-        orgUrl: "<org-url>",
-        widgetId: "<widget-id>",
+        orgId: "e3e5aa8e-fe71-f011-8589-000d3a5b5d09",
+        orgUrl: "https://m-e3e5aa8e-fe71-f011-8589-000d3a5b5d09.us.omnichannelengagementhub.com",
+        widgetId: "027ffbcd-826f-4a6a-963a-4158fbe6b82c",
     };
     return omnichannelConfig;
 };
