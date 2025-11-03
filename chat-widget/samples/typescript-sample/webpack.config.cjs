@@ -1,7 +1,7 @@
 // webpack.config.cjs
 const path = require('path');
 // If you later re-enable CopyWebpackPlugin, uncomment the next line:
-// const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const disableFullyQualifiedNameResolutions = {
   test: /\.m?js/,
@@ -46,16 +46,16 @@ const config = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
   },
-  // plugins: [
-  //   new CopyWebpackPlugin({
-  //     patterns: [
-  //       {
-  //         from: path.resolve(__dirname, 'public'),
-  //         to: path.resolve(__dirname, 'dist'),
-  //       },
-  //     ],
-  //   }),
-  // ],
+  plugins: [
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'public'),
+          to: path.resolve(__dirname, 'dist'),
+        },
+      ],
+    }),
+  ],
 };
 
 module.exports = config;
